@@ -1,0 +1,48 @@
+{
+   "name": "Applyd",
+   "version": "1.0",
+   "description": "Store info about jobs applied via LinkedIn, Indeed and Google search",
+   "icons": {
+      "16": "images/tie16.png",
+      "32": "images/tie32.png",
+      "48": "images/tie48.png",
+      "128": "images/tie128.png"
+   },
+   "permissions": [
+      "https://www.linkedin.com/jobs/view/*", 
+      "http://www.linkedin.com/jobs/view/*",
+      "https://www.linkedin.com/jobs/search/*",
+      "https://www.indeed.com/jobs?*",
+      "https://ca.indeed.com/*",
+      "https://cdn.datatables.net/*",
+      "tabs",
+      "storage"
+   ],
+   "background": {
+      "scripts": ["main.js"],
+      "persistent": false
+   },
+   "page_action": {
+      "default_title": "I Applied!",
+      "default_popup": "popup.html",
+      "default_icon": {
+         "16": "images/tie16.png",
+         "32": "images/tie32.png",
+         "48": "images/tie48.png",
+         "128": "images/tie128.png"
+       }
+   },
+   "content_scripts": [{
+      "matches": [ 
+         "https://www.indeed.com/*",
+         "https://www.linkedin.com/*"
+      ],
+      "js": [
+         "js/jquery-1.7.min.js",
+         "scan.js"
+      ],
+      "run_at": "document_start"
+   }],
+   "content_security_policy": "script-src 'self' https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js; object-src 'self'",
+   "manifest_version": 2
+}
