@@ -37,6 +37,7 @@ var jobMng = (function(sm){
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
    // First, validate the message's structure
    if ((msg.from === 'applyd_popup') && (msg.subject === 'storeJobInfo')) {
+      console.log("this was picked up from the chrome listener. Job payload:")
      console.log(msg.job);
      jobMng.store(msg.job);
      response({res: "Info Stored"});
@@ -45,7 +46,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     if(tab.url.indexOf("www.linkedin.com/jobs/view") !== -1 || tab.url.indexOf("www.linkedin.com/jobs/search") !== -1 
-        || tab.url.indexOf("www.indeed.com/jobs") !== -1){
+        || tab.url.indexOf("www.indeed.com/jobs") !== -1 || tab.url.indexOf("ca.indeed.com/jobs") !== -1 || tab.url.indexOf("ca.indeed.com/viewjob") !== -1){
         chrome.pageAction.show(tab.id);
     }else{
         chrome.pageAction.hide(tab.id, function(){
